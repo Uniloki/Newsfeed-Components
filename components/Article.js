@@ -88,6 +88,43 @@ const data = [
   }
 ];
 
+const body = document.querySelector('body')
+
+function articleMaker(object){
+  const article = document.createElement('div');
+  article.classList.add('article');
+
+  const title = document.createElement('h2');
+  title.textContent = object.title;
+
+  const date = document.createElement('p');
+  date.textContent = object.date;
+
+  const p1 = document.createElement('p');
+  p1.textContent = object.firstParagraph;
+
+  const p2 = document.createElement('p');
+  p2.textContent = object.secondParagraph;
+
+  const p3 = document.createElement('p');
+  p3.textContent = object.thirdParagraph;
+
+  const expand = document.createElement('span');
+  expand.textContent = "+";
+
+  expand.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  })
+  body.appendChild(article);
+  article.appendChild(title);
+  article.appendChild(date);
+  article.appendChild(p1);
+  article.appendChild(p2);
+  article.appendChild(p3);
+  article.appendChild(expand);
+}
+
+articleMaker(data[0])
 /* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
 
   <div class="article">
