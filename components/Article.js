@@ -1,5 +1,7 @@
 /* This is the data we will be using to create our articles */
 /* Look over this data, then proceed to line 91*/
+import { gsap } from "gsap";
+
 const data = [
   {
     title: 'Lambda School Students: "We\'re the best!"',
@@ -99,6 +101,16 @@ const data = [
 
 const body = document.querySelector('body')
 
+window.addEventListener('load',() => {
+  gsap.from(".article", {
+    opacity: 0, 
+    y: 100, 
+    duration: 1,
+    stagger: .25
+  });
+})
+
+
 function articleMaker(object){
   const article = document.createElement('div');
   article.classList.add('article');
@@ -135,11 +147,12 @@ function articleMaker(object){
   return article;
 }
 
-
+const artDiv = document.querySelector('.articles');
 data.forEach((item) => {
   let newArt = articleMaker(item)
-  body.appendChild(newArt);
+  artDiv.appendChild(newArt);
 }) 
+
 
 /* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
 

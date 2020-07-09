@@ -1,4 +1,5 @@
 /* This is the data we will be using, study it but don't change anything, yet. */
+import { gsap } from "gsap";
 
 let menuItems = [
   'Students',
@@ -8,7 +9,6 @@ let menuItems = [
   'Music',
   'Log Out'
 ];
-
 
 function menuMaker(array){
   let menu = document.createElement('div');
@@ -35,6 +35,21 @@ function menuMaker(array){
 const header = document.querySelector('.header');
 
 header.appendChild(menuMaker(menuItems));
+
+var scrollMenu = gsap.from('.menu', {
+  duration: .5, 
+  height: 0,
+  paused: true,
+  reversed: true
+})
+let button = document.querySelector('.menu-button');
+
+button.addEventListener('click',scroll);
+
+function scroll(){
+  scrollMenu.reversed() ? scrollMenu.play() : scrollMenu.reverse();
+}
+
 /* 
   Step 1: Write a component called 'menuMaker' to create a menu like the markup below:
 
