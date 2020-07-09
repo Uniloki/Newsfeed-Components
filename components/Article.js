@@ -1,5 +1,7 @@
 /* This is the data we will be using to create our articles */
 /* Look over this data, then proceed to line 91*/
+import { gsap } from "gsap";
+
 const data = [
   {
     title: 'Lambda School Students: "We\'re the best!"',
@@ -85,12 +87,76 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title: 'This Is A NEW Article',
+    date: 'Jan 18th, 2020',
+    firstParagraph: `'Did you ever hear the Tragedy of Darth Plagueis the wise? I thought not. It's not a story the Jedi would tell you. It's a Sith legend. Darth Plagueis was a Dark Lord of the Sith, so powerful and so wise he could use the Force to influence the midichlorians to create life... He had such a knowledge of the dark side that he could even keep the ones he cared about from dying. The dark side of the Force is a pathway to many abilities some consider to be unnatural. He became so powerful... the only thing he was afraid of was losing his power, which eventually, of course, he did. Unfortunately, he taught his apprentice everything he knew, then his apprentice killed him in his sleep. It's ironic he could save others from death, but not himself.'  `,
+
+    secondParagraph: `Filler`,
+
+    thirdParagraph: `Filler`
   }
 ];
 
+const body = document.querySelector('body')
+
+window.addEventListener('load',() => {
+  gsap.from(".article", {
+    opacity: 0, 
+    y: 100, 
+    duration: 1,
+    stagger: .25
+  });
+})
+
+
+function articleMaker(object){
+  const article = document.createElement('div');
+  article.classList.add('article');
+
+  const title = document.createElement('h2');
+  title.textContent = object.title;
+
+  const date = document.createElement('p');
+  date.textContent = object.date;
+
+  const p1 = document.createElement('p');
+  p1.textContent = object.firstParagraph;
+
+  const p2 = document.createElement('p');
+  p2.textContent = object.secondParagraph;
+
+  const p3 = document.createElement('p');
+  p3.textContent = object.thirdParagraph;
+
+  const expand = document.createElement('span');
+  expand.classList.add('expandButton');
+  expand.textContent = "+";
+
+  expand.addEventListener('click', () => {
+    article.classList.toggle('article-open');
+  })
+  article.appendChild(title);
+  article.appendChild(date);
+  article.appendChild(p1);
+  article.appendChild(p2);
+  article.appendChild(p3);
+  article.appendChild(expand);
+
+  return article;
+}
+
+const artDiv = document.querySelector('.articles');
+data.forEach((item) => {
+  let newArt = articleMaker(item)
+  artDiv.appendChild(newArt);
+}) 
+
+
 /* Step 1: Write a component called 'articleMaker' to create an article. You want your component to return markup like the template below: 
 
-  <div class="article">
+  <div class="article">~
     <h2>{title of the article}</h2>
     <p class="date">{date of the article}</p>
 
